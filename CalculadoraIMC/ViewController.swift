@@ -46,17 +46,19 @@ class ViewController: UIViewController {
     func calcularIMC() {
         guard let alturaString = alturaTextField.text else { return }
         guard let pesoString = pesoTextField.text else { return }
-
+        
         // transformar em Float e calcular
         let altura = (alturaString as NSString).floatValue
         let peso = (pesoString as NSString).floatValue
         let imc = (peso*altura) / 2
         imc.formatted(.number)
-        var fraseIMC = fraseIMCLabel.text
+        
+        var fraseIMC: String
         
         // verificar o imc
         if (imc < 18) {
             fraseIMC = "Abaixo do peso"
+            resultadoIMCLabel.textColor = .red
             
         } else if (imc >= 18.5 && imc < 25) {
             fraseIMCLabel.text = "Peso ideal"
@@ -72,7 +74,7 @@ class ViewController: UIViewController {
         seuIMCLabel.text = "Seu IMC é:"
         resultadoIMCLabel.text = "\(imc)%"
         voceEstaLabel.text = "Você está:"
-        fraseIMCLabel.text = "\(fraseIMC)"
+        fraseIMCLabel.text = ""
     }
     
     func textFieldStyle() {
