@@ -61,11 +61,11 @@
 				4CCE5E8627D7C2FE000408A8 /* AppDelegate.swift */,
 				4CCE5E8827D7C2FE000408A8 /* SceneDelegate.swift */,
 				4CCE5E8A27D7C2FE000408A8 /* ViewController.swift */,
+				4C6653D527D7F7A900788979 /* Alerta.swift */,
 				4CCE5E8C27D7C2FE000408A8 /* Main.storyboard */,
 				4CCE5E8F27D7C2FE000408A8 /* Assets.xcassets */,
 				4CCE5E9127D7C2FE000408A8 /* LaunchScreen.storyboard */,
 				4CCE5E9427D7C2FE000408A8 /* Info.plist */,
-				4C6653D527D7F7A900788979 /* Alerta.swift */,
 			);
 			path = CalculadoraIMC;
 			sourceTree = "<group>";

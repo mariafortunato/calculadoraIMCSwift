@@ -14,10 +14,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var alturaTextField: UITextField!
     @IBOutlet weak var pesoTextField: UITextField!
     @IBOutlet weak var mostrarResultadoView: UIView!
-    @IBOutlet weak var seuIMCLabel: UILabel!
     @IBOutlet weak var resultadoIMCLabel: UILabel!
-    @IBOutlet weak var voceEstaLabel: UILabel!
     @IBOutlet weak var fraseIMCLabel: UILabel!
+    @IBOutlet weak var resultadoImage: UIImageView!
+    @IBOutlet weak var seuIMCeLabel: UILabel!
+    @IBOutlet weak var voceEstaLabel: UILabel!
     
     
     // MARK: - View life cycle
@@ -29,8 +30,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: - IBAction
-    
-    
+
     @IBAction func calcularButton(_ sender: Any) {
         validarCampos()
     }
@@ -50,8 +50,7 @@ class ViewController: UIViewController {
         // transformar em Float e calcular
         let altura = (alturaString as NSString).floatValue
         let peso = (pesoString as NSString).floatValue
-        let imc = (peso*altura) / 2
-        imc.formatted(.number)
+        let imc = peso / (altura*altura)
         
         var fraseIMC: String
         
@@ -59,24 +58,48 @@ class ViewController: UIViewController {
         if (imc < 18) {
             fraseIMC = "Abaixo do peso"
             resultadoIMCLabel.textColor = .red
-            
+
         } else if (imc >= 18.5 && imc < 25) {
-            fraseIMCLabel.text = "Peso ideal"
+            fraseIMC = "Peso ideal"
             
         } else if (imc >= 25 && imc < 30) {
-            fraseIMCLabel.text = "Sobrepeso"
+            fraseIMC = "Sobrepeso"
             
         } else {
-            fraseIMCLabel.text = "Acima do peso"
+            fraseIMC = "Acima do peso"
         }
-
         // imprimir o resultado na tela
-        seuIMCLabel.text = "Seu IMC é:"
+        seuIMCeLabel.text = "Seu IMC é: "
         resultadoIMCLabel.text = "\(imc)%"
         voceEstaLabel.text = "Você está:"
-        fraseIMCLabel.text = ""
+        fraseIMCLabel.text = "\(fraseIMC)"
+        imprimirImagem()
+        
     }
-    
+    func cores() {
+        let cores = fraseIMCLabel.text
+        
+        switch cores {
+        case "Abaixo do peso":
+            resultadoIMCLabel.textColor = .red
+        default:
+            print("nao deu")
+        }
+    }
+    func imprimirImagem() {
+        
+        var resultadoImagem = fraseIMCLabel.text
+        
+        switch resultadoImagem {
+        case "Abaixo do peso":
+            print("1")
+        case "Peso ideal":
+            print("2")
+
+        default:
+            break
+        }
+    }
     func textFieldStyle() {
         guard let altura = alturaTextField else { return }
         guard let peso = pesoTextField else { return }
