@@ -15,18 +15,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var pesoTextField: UITextField!
     @IBOutlet weak var mostrarResultadoView: UIView!
     @IBOutlet weak var resultadoIMCLabel: UILabel!
-    @IBOutlet weak var fraseIMCLabel: UILabel!
-    @IBOutlet weak var resultadoImage: UIImageView!
-    @IBOutlet weak var seuIMCeLabel: UILabel!
-    @IBOutlet weak var voceEstaLabel: UILabel!
+    @IBOutlet weak var linhaAbaixoPeso: UIStackView!
+    @IBOutlet weak var linhaPesoIdeal: UIStackView!
+    @IBOutlet weak var linhaSobrepeso: UIStackView!
+    @IBOutlet weak var linhaObesidade: UIStackView!
+    @IBOutlet weak var fraseIMClabel: UILabel!
     
-    
+
     // MARK: - View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldStyle()
-        
     }
     
     // MARK: - IBAction
@@ -34,6 +34,12 @@ class ViewController: UIViewController {
     @IBAction func calcularButton(_ sender: Any) {
         validarCampos()
     }
+    @IBAction func limparTextField(_ sender: Any) {
+        alturaTextField.text = ""
+        pesoTextField.text = ""
+        resultadoIMCLabel.text = ""
+    }
+    
     // MARK: - Metodos
     
     func validarCampos() {
@@ -52,63 +58,57 @@ class ViewController: UIViewController {
         let peso = (pesoString as NSString).floatValue
         let imc = peso / (altura*altura)
         
-        var fraseIMC: String
-        
-        // verificar o imc
-        if (imc < 18) {
-            fraseIMC = "Abaixo do peso"
-            resultadoIMCLabel.textColor = .red
-
-        } else if (imc >= 18.5 && imc < 25) {
-            fraseIMC = "Peso ideal"
-            
-        } else if (imc >= 25 && imc < 30) {
-            fraseIMC = "Sobrepeso"
-            
-        } else {
-            fraseIMC = "Acima do peso"
-        }
-        // imprimir o resultado na tela
-        seuIMCeLabel.text = "Seu IMC é: "
         resultadoIMCLabel.text = "\(imc)%"
-        voceEstaLabel.text = "Você está:"
-        fraseIMCLabel.text = "\(fraseIMC)"
-        imprimirImagem()
+        
+        if (imc < 18) {
+            fraseIMClabel.text = "AbaixoPeso"
+        } else if (imc >= 18 && imc < 25) {
+            fraseIMClabel.text = "PesoIdeal"
+        } else if (imc >= 25 && imc < 30) {
+            fraseIMClabel.text = "Sobrepeso"
+        } else {
+            fraseIMClabel.text = "Obesidade"
+        }
         
     }
-    func cores() {
-        let cores = fraseIMCLabel.text
+    func resultadoLinha() {
+        guard let fraseImc = fraseIMClabel.text else { return }
+        let corBorda = CGColor(red: 4.0/255.0, green: 60.0/255.0, blue: 1.0/255.0, alpha: 0.67)
         
-        switch cores {
-        case "Abaixo do peso":
+        if (fraseImc == "AbaixoPeso") {
             resultadoIMCLabel.textColor = .red
-        default:
-            print("nao deu")
+            linhaAbaixoPeso.layer.borderWidth = 2
+            linhaAbaixoPeso.layer.borderColor = corBorda
+        } else if (fraseImc == "PesoIdeal") {
+            resultadoIMCLabel.textColor = .green
+            linhaPesoIdeal.layer.borderWidth = 2
+            linhaPesoIdeal.layer.borderColor = corBorda
+        } else if (fraseImc == "Sobrepeso") {
+            resultadoIMCLabel.textColor = .yellow
+            linhaSobrepeso.layer.borderWidth = 2
+            linhaSobrepeso.layer.borderColor = corBorda
+        } else {
+            resultadoIMCLabel.textColor = .red
+            linhaObesidade.layer.borderWidth = 2
+            linhaObesidade.layer.borderColor = corBorda
         }
     }
-    func imprimirImagem() {
-        
-        var resultadoImagem = fraseIMCLabel.text
-        
-        switch resultadoImagem {
-        case "Abaixo do peso":
-            print("1")
-        case "Peso ideal":
-            print("2")
 
-        default:
-            break
-        }
-    }
     func textFieldStyle() {
         guard let altura = alturaTextField else { return }
         guard let peso = pesoTextField else { return }
         let corBorda = CGColor(red: 4.0/255.0, green: 60.0/255.0, blue: 1.0/255.0, alpha: 0.67)
+        let leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 10.0, height: 2.0))
+        let esquerdaView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 10.0, height: 2.0))
         
+        altura.leftView = leftView
+        altura.leftViewMode = .always
         altura.layer.borderWidth = 2
         altura.layer.cornerRadius = 8
         altura.layer.borderColor = corBorda
 
+        peso.leftView = esquerdaView
+        peso.leftViewMode = .always
         peso.layer.borderWidth = 2
         peso.layer.cornerRadius = 8
         peso.layer.borderColor = corBorda
