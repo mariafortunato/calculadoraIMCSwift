@@ -19,9 +19,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var linhaPesoIdeal: UIStackView!
     @IBOutlet weak var linhaSobrepeso: UIStackView!
     @IBOutlet weak var linhaObesidade: UIStackView!
-    @IBOutlet weak var fraseIMClabel: UILabel!
     
 
+    // MARK: - Atributos
+    
+    let vermelhoUIColor = UIColor(red: 255.0/255.0, green: 99.0/255.0, blue: 71.0/255.0, alpha: 1)
+    let verdeUIColor = UIColor(red: 0.0/255.0, green: 100.0/255.0, blue: 0.0/255.0, alpha: 1)
+    let amareloUIColor = UIColor(red: 204.0/255.0, green: 172.0/255.0, blue: 0.0/255.0, alpha: 1)
+    let vermelhoCGColor = CGColor(red: 255.0/255.0, green: 99.0/255.0, blue: 71.0/255.0, alpha: 1)
+    let verdeCGColor = CGColor(red: 0.0/255.0, green: 100.0/255.0, blue: 0.0/255.0, alpha: 1)
+    let amareloCGColor = CGColor(red: 255.0/255.0, green: 215.0/255.0, blue: 0.0/255.0, alpha: 1)
+    
     // MARK: - View life cycle
     
     override func viewDidLoad() {
@@ -38,6 +46,10 @@ class ViewController: UIViewController {
         alturaTextField.text = ""
         pesoTextField.text = ""
         resultadoIMCLabel.text = ""
+        linhaAbaixoPeso.layer.borderWidth = 0
+        linhaPesoIdeal.layer.borderWidth = 0
+        linhaSobrepeso.layer.borderWidth = 0
+        linhaObesidade.layer.borderWidth = 0
     }
     
     // MARK: - Metodos
@@ -58,39 +70,30 @@ class ViewController: UIViewController {
         let peso = (pesoString as NSString).floatValue
         let imc = peso / (altura*altura)
         
-        resultadoIMCLabel.text = "\(imc)%"
+        
+        let resultado = String.localizedStringWithFormat("%.2f", imc)
+        
+        resultadoIMCLabel.text = "\(resultado)%"
         
         if (imc < 18) {
-            fraseIMClabel.text = "AbaixoPeso"
-        } else if (imc >= 18 && imc < 25) {
-            fraseIMClabel.text = "PesoIdeal"
-        } else if (imc >= 25 && imc < 30) {
-            fraseIMClabel.text = "Sobrepeso"
-        } else {
-            fraseIMClabel.text = "Obesidade"
-        }
-        
-    }
-    func resultadoLinha() {
-        guard let fraseImc = fraseIMClabel.text else { return }
-        let corBorda = CGColor(red: 4.0/255.0, green: 60.0/255.0, blue: 1.0/255.0, alpha: 0.67)
-        
-        if (fraseImc == "AbaixoPeso") {
-            resultadoIMCLabel.textColor = .red
+            resultadoIMCLabel.textColor = vermelhoUIColor
             linhaAbaixoPeso.layer.borderWidth = 2
-            linhaAbaixoPeso.layer.borderColor = corBorda
-        } else if (fraseImc == "PesoIdeal") {
-            resultadoIMCLabel.textColor = .green
+            linhaAbaixoPeso.layer.borderColor = vermelhoCGColor
+            
+            
+        } else if (imc >= 18 && imc < 25) {
+            resultadoIMCLabel.textColor = verdeUIColor
             linhaPesoIdeal.layer.borderWidth = 2
-            linhaPesoIdeal.layer.borderColor = corBorda
-        } else if (fraseImc == "Sobrepeso") {
-            resultadoIMCLabel.textColor = .yellow
+            linhaPesoIdeal.layer.borderColor = verdeCGColor
+            
+        } else if (imc >= 25 && imc < 30) {
+            resultadoIMCLabel.textColor = amareloUIColor
             linhaSobrepeso.layer.borderWidth = 2
-            linhaSobrepeso.layer.borderColor = corBorda
+            linhaSobrepeso.layer.borderColor = amareloCGColor
         } else {
-            resultadoIMCLabel.textColor = .red
+            resultadoIMCLabel.textColor = vermelhoUIColor
             linhaObesidade.layer.borderWidth = 2
-            linhaObesidade.layer.borderColor = corBorda
+            linhaObesidade.layer.borderColor = vermelhoCGColor
         }
     }
 
