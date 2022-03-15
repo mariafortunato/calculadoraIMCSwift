@@ -18,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		4C6653D527D7F7A900788979 /* Alerta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerta.swift; sourceTree = "<group>"; };
+		4C7CEEC027E11E72000301A1 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		4CCE5E8327D7C2FE000408A8 /* CalculadoraIMC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalculadoraIMC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CCE5E8627D7C2FE000408A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CCE5E8827D7C2FE000408A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 		4CCE5E7A27D7C2FE000408A8 = {
 			isa = PBXGroup;
 			children = (
+				4C7CEEC027E11E72000301A1 /* readme.md */,
 				4CCE5E8527D7C2FE000408A8 /* CalculadoraIMC */,
 				4CCE5E8427D7C2FE000408A8 /* Products */,
 			);
