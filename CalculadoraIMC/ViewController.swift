@@ -55,8 +55,15 @@ class ViewController: UIViewController {
     // MARK: - Metodos
     
     func validarCampos() {
-        if (alturaTextField.text == "" && pesoTextField.text == "") {
-            Alerta(controller: self).exibeAlerta(titulo: "Atenção", mensagem: "Preencha os campos corretamente")
+        guard let altura = alturaTextField.text else {return}
+        guard let peso = pesoTextField.text else {return}
+        if (altura == "" || peso == "") {
+            Alerta(controller: self).exibeAlerta(titulo: "Atenção", mensagem: "Preencha todos os campos")
+                
+        } else if (altura.count > 4) {
+            Alerta(controller: self).exibeAlerta(titulo: "Atenção", mensagem: "Ex: 1.70")
+        } else if (peso.count > 5){
+            Alerta(controller: self).exibeAlerta(titulo: "Atenção", mensagem: "Ex: 70.5 ou 100.5")
         } else {
             calcularIMC()
         }
@@ -115,6 +122,7 @@ class ViewController: UIViewController {
         peso.layer.borderWidth = 2
         peso.layer.cornerRadius = 8
         peso.layer.borderColor = corBorda
+        
         
     }
     
