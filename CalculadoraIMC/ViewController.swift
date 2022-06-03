@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         } else if (altura.count > 4) {
             Alerta(controller: self).exibeAlerta(titulo: "Atenção", mensagem: "Ex: 1.70")
         } else if (peso.count > 5){
-            Alerta(controller: self).exibeAlerta(titulo: "Atenção", mensagem: "Ex: 70.5 ou 100.5")
+            Alerta(controller: self).exibeAlerta(titulo: "Atenção", mensagem: "Ex: 70.5 ou 70.5")
         } else {
             calcularIMC()
         }
